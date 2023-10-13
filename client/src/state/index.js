@@ -6,14 +6,14 @@ const initialState = {
     items: [],
 }
 
-export const cartSLice = createSlice ({
+export const cartSlice = createSlice ({
     name: "cart" ,
     initialState,
     reducers: {
         setItems: (state, action) => {
             state.items = action.payload
         },
-        addTocart: (state, action)=>{
+        addToCart: (state, action)=>{
             state.cart= [...state.cart, action.payload.item];
         },
 
@@ -25,16 +25,33 @@ export const cartSLice = createSlice ({
                 if (item.id === action.payload.id){
                     item.count++;
                 }
+                return item;
             })
-        }
+        },
+        decreaseCount: ( state, action) => {
+            state.cart = state.cart.map((item) => {
+                if (item.id === action.payload.id && item.count > 1){
+                    item.count--;
+                }
+                return item;
+            })
+        },
 
+        setIsCartOpen: (state) => {
+            state.isCartOpen = !state.isCartOpen;
+        }
 
 
     }
 });
 
 export const {
-    setItems
-} = cartSLice.actions;
+    setItems,
+    addToCart,
+    increaseCount,
+    decreaseCount,
+    setIsCartOpen,
+    removeFromCart,
+} = cartSlice.actions;
 
-export default cartSLice.reducer
+export default cartSlice.reducer
