@@ -20,7 +20,7 @@ const ShoppingList = () => {
 
   async function getItems() {
     const items = await fetch(
-      "http://localhost:1337/api/items?populate=image",
+      "https://bfw.onrender.com/api/items?populate=image",
       { method: "GET" }
     );
     const itemsJson = await items.json();
@@ -76,6 +76,7 @@ const ShoppingList = () => {
         {value === "all" &&
           items.map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
+            
           ))}
         {value === "newArrivals" &&
           newArrivalsItems.map((item) => (
@@ -83,7 +84,7 @@ const ShoppingList = () => {
           ))}
         {value === "bestSellers" &&
           bestSellersItems.map((item) => (
-            <Item item={item} key={`${item.name}-${item.id}`} />
+              <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
         {value === "topRated" &&
           topRatedItems.map((item) => (
