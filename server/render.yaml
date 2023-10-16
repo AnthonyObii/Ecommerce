@@ -3,7 +3,7 @@ services:
     name: strapi
     env: node
     plan: starter
-    buildCommand: npm install && npm run gbuild
+    buildCommand: npm install && npm run gibuild
     startCommand: npm start
     healthCheckPath: /_health
     autoDeploy: false
