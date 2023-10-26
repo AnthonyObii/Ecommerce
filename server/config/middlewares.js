@@ -4,14 +4,10 @@ module.exports = [
     name: 'strapi::security',
     config: {
       contentSecurityPolicy: {
-        useDefaults: true,
         directives: {
-          'connect-src': ["'self'", 'https:'],
-          'img-src': ["'self'", 'data:', 'blob:', 'res.cloudinary.com'],
-          'media-src': ["'self'", 'data:', 'blob:', 'res.cloudinary.com'],
-          upgradeInsecureRequests: null,
+          'img-src': ["'self'", 'data:', 'strapi.io', 'res.cloudinary.com/'],
         },
-      },
+      }
     },
   },
   'strapi::cors',
@@ -19,7 +15,6 @@ module.exports = [
   'strapi::logger',
   'strapi::query',
   'strapi::body',
-  'strapi::session',
   'strapi::favicon',
   'strapi::public',
 ];
