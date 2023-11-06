@@ -43,7 +43,7 @@ const Item = ({ item, width, categoryLabel }) => {
           alt={item.name}
           width="300px"
           height="400px"
-          src={`https://dbfw.onrender.com${url}`}
+          src={`${url}`}
           onClick={() => navigate(`/item/${item.id}`)}
           style={{ cursor: "pointer" }}
         />

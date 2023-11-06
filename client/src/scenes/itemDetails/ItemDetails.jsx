@@ -23,7 +23,7 @@ const ItemDetails = () => {
 
   async function getItem() {
     const item = await fetch(
-      `https://dbfw.onrender.com/${itemId}?populate=image`,
+      `http://localhost:1337/api/items/${itemId}?populate=image`,
       { method: "GET" }
     );
     const itemJson = await item.json();
@@ -32,7 +32,7 @@ const ItemDetails = () => {
 
   async function getItems() {
     const items = await fetch(
-      `https://dbfw.onrender.com/api/items?populate=image`,
+      `http://localhost:1337/api/items/?populate=image`,
       {
         method: "GET",
       }
@@ -46,6 +46,8 @@ const ItemDetails = () => {
     getItems();
   }, [itemId]); // eslint-disable-line react-hooks/exhaustive-deps
 
+
+
   return (
     <Box width="80%" m="80px auto">
       <Box display="flex" flexWrap="wrap" columnGap="40px">
@@ -55,7 +57,7 @@ const ItemDetails = () => {
             alt={item?.name}
             width="100%"
             height="100%"
-            src={`https://dbfw.onrender.com${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+            src={`${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
             style={{ objectFit: "contain" }}
           />
         </Box>
@@ -63,12 +65,11 @@ const ItemDetails = () => {
         {/* ACTIONS */}
         <Box flex="1 1 50%" mb="40px">
           <Box display="flex" justifyContent="space-between">
-            <Box>Home/Item</Box>
           </Box>
 
           <Box m="65px 0 25px 0">
             <Typography variant="h3">{item?.attributes?.name}</Typography>
-            <Typography>₦{item?.attributes?.price}</Typography>
+            <Typography>${item?.attributes?.price}</Typography>
             <Typography sx={{ mt: "20px" }}>
               {item?.attributes?.longDescription}
             </Typography>
@@ -105,8 +106,6 @@ const ItemDetails = () => {
           </Box>
           <Box>
             <Box m="20px 0 5px 0" display="flex">
-              <FavoriteBorderOutlinedIcon />
-              <Typography sx={{ ml: "5px" }}>ADD TO WISHLIST</Typography>
             </Box>
             {item?.attributes?.category === "newArrivals" && (
               <Typography>Category: New Arrivals</Typography>
@@ -133,27 +132,13 @@ const ItemDetails = () => {
           columnGap="1.33%"
           justifyContent="space-between"
         >
-          {items.slice(0, 4).map((relatedItem, i) => (
-            <div key={`${relatedItem.name}-${i}`}>
-              <Item item={relatedItem} />
-              <Typography>
-              {item?.attributes?.category === "newArrivals" && (
-              <Typography>Category: New Arrivals</Typography>
-            )}
-            {item?.attributes?.category === "bestSellers" && (
-              <Typography>Category: Best Sellers</Typography>
-            )}
-            {item?.attributes?.category === "topRated" && (
-              <Typography>Category: Top Rated</Typography>
-            )}
-              </Typography>
-            </div>
+          {items.slice(0, 4).map((item, i) => (
+            <Item key={`${item.name}-${i}`} item={item} />
           ))}
         </Box>
       </Box>
     </Box>
   );
 };
-
 
 export default ItemDetails;
